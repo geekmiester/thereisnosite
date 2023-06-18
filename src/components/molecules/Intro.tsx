@@ -29,7 +29,7 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
         .pauseFor(800)
         .deleteAll()
         .callFunction(() => {
-          playerRef.current!.volume = 0.05;
+          playerRef.current!.volume = 0.2;
           playerRef.current?.play();
         })
         .typeString("Loading the website... ")
