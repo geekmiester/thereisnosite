@@ -11,7 +11,10 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
   const writerRef = useRef<TypewriterClass>();
   const [counter, setCounter] = useState(0);
   const [isNoVisible, setNoVisible] = useState(true);
+  const [isEmailVisible, setEmailVisible] = useState(false);
   const [isOfcourseNoVisible, setOfcourseNoVisible] = useState(true);
+
+  const playerRef = useRef<HTMLAudioElement>(null);
 
   const counterHandler = (writer: TypewriterClass | undefined) => {
     if (counter === 0) {
@@ -25,9 +28,13 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
         .typeString("Alright.......")
         .pauseFor(800)
         .deleteAll()
+        .callFunction(() => {
+          playerRef.current!.volume = 0.05;
+          playerRef.current?.play();
+        })
         .typeString("Loading the website... ")
         .typeString("3")
-        .pauseFor(800)
+        .pauseFor(1000)
         .deleteChars(1)
         .typeString("2")
         .pauseFor(800)
@@ -35,10 +42,16 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
         .typeString("1")
         .pauseFor(800)
         .deleteAll(1)
+        .callFunction(() => {
+          playerRef.current?.pause();
+        })
         .typeString("Just Kidding")
         .pauseFor(800)
         .deleteAll(0)
         .typeString("There is no site :)")
+        .callFunction(() => {
+          setEmailVisible(true);
+        })
         .pauseFor(4000)
         .deleteAll(0)
         .typeString("Why?")
@@ -54,7 +67,7 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
 
   const YesComp = (
     <button
-      className="border-white border-2 hover:bg-white hover:text-black px-5 py-1 "
+      className="border-white border-2 hover:bg-white hover:text-black px-5 pt-1 text-lg"
       onClick={() => {
         const writer = writerRef.current;
         setCounter((count) => count + 1);
@@ -67,12 +80,16 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
 
   return (
     <div className="flex justify-center items-center w-full h-screen flex-col">
+      <audio ref={playerRef}>
+        <source src="/wait.mp3" />
+      </audio>
+
       <h2 className={`text-4xl p-4  ${specialElite.className}}`}>
         <Typewriter
           onInit={(typewriter) => {
             writerRef.current = typewriter;
             typewriter
-              .changeDeleteSpeed(30)
+              .changeDeleteSpeed(10)
               .changeDelay(80)
               .typeString("There is no site")
               .pauseFor(1200)
@@ -113,7 +130,7 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
           {YesComp}
           {isNoVisible ? (
             <button
-              className="border-white border-2 hover:bg-white hover:text-black px-5 py-1 "
+              className="border-white border-2 hover:bg-white hover:text-black px-5 pt-1 text-lg "
               onClick={() => setNoVisible(false)}
             >
               No
@@ -123,7 +140,7 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
           )}
           {isOfcourseNoVisible ? (
             <button
-              className="border-white border-2 hover:bg-white hover:text-black px-5 py-1 "
+              className="border-white border-2 hover:bg-white hover:text-black px-5 pt-1 text-lg"
               onClick={() => setOfcourseNoVisible(false)}
             >
               Of course not
@@ -132,6 +149,14 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
             YesComp
           )}
         </div>
+      )}
+      {isEmailVisible && (
+        <a
+          className="border-white border-2 hover:bg-white hover:text-black px-5 pt-1 text-lg cursor-pointer"
+          href="mailto:thereisno.co@gmail.com"
+        >
+          There is no email
+        </a>
       )}
     </div>
   );
