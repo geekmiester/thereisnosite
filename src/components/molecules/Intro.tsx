@@ -14,7 +14,7 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
   const [isEmailVisible, setEmailVisible] = useState(false);
   const [isOfcourseNoVisible, setOfcourseNoVisible] = useState(true);
 
-  const playerRef = useRef<HTMLAudioElement>(null);
+  // const playerRef = useRef<HTMLAudioElement>(null);
 
   const counterHandler = (writer: TypewriterClass | undefined) => {
     if (counter === 0) {
@@ -28,10 +28,10 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
         .typeString("Alright.......")
         .pauseFor(800)
         .deleteAll()
-        .callFunction(() => {
-          playerRef.current!.volume = 0.2;
-          playerRef.current?.play();
-        })
+        // .callFunction(() => {
+        //   playerRef.current!.volume = 0.2;
+        //   playerRef.current?.play();
+        // })
         .typeString("Loading the website... ")
         .typeString("3")
         .pauseFor(1000)
@@ -42,9 +42,9 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
         .typeString("1")
         .pauseFor(800)
         .deleteAll(1)
-        .callFunction(() => {
-          playerRef.current?.pause();
-        })
+        // .callFunction(() => {
+        //   playerRef.current?.pause();
+        // })
         .typeString("Just Kidding")
         .pauseFor(800)
         .deleteAll(0)
@@ -80,9 +80,9 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
 
   return (
     <div className="flex justify-center items-center w-full h-screen flex-col">
-      <audio ref={playerRef}>
+      {/* <audio ref={playerRef}>
         <source src="/wait.mp3" />
-      </audio>
+      </audio> */}
 
       <h2 className={`text-4xl p-4  ${specialElite.className}}`}>
         <Typewriter
