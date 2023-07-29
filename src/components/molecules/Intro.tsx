@@ -1,10 +1,11 @@
 import Typewriter, { TypewriterClass } from "typewriter-effect";
 import React, { useRef, useState } from "react";
-import { Abhaya_Libre } from "next/font/google";
 
 interface Props {}
 
-const specialElite = Abhaya_Libre({ weight: "400", subsets: ["latin"] });
+import { Special_Elite } from "next/font/google";
+
+const specialElite = Special_Elite({ weight: "400", subsets: ["latin"] });
 
 export const Intro: React.FunctionComponent<Props> = (props) => {
   const [isConfirmVisible, setConfirmVisible] = useState(false);
@@ -79,12 +80,14 @@ export const Intro: React.FunctionComponent<Props> = (props) => {
   );
 
   return (
-    <div className="flex justify-center items-center w-full h-screen flex-col">
+    <div
+      className={`flex justify-center items-center w-full h-screen flex-col ${specialElite.className}`}
+    >
       {/* <audio ref={playerRef}>
         <source src="/wait.mp3" />
       </audio> */}
 
-      <h2 className={`text-4xl p-4  ${specialElite.className}}`}>
+      <h2 className={`text-4xl p-4`}>
         <Typewriter
           onInit={(typewriter) => {
             writerRef.current = typewriter;
